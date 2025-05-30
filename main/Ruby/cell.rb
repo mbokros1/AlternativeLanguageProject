@@ -2,11 +2,10 @@
 require 'csv'
 
 class Cell
-  # Keeping numerical values' sums as class attributes
-  @@total_number = 0
-  @@sum_weight = 0
-  @@sum_display_size = 0
-  @@sum_launch_announced = 0
+  # Stored in a hash class attribute
+
+  @@cell_data = Hash.new
+
   # The column headers of cells.csv as attributes of the Cell class
   @oem
   @model
@@ -39,10 +38,7 @@ class Cell
     @features_sensors = features_sensors
     @platform_os = platform_os
     
-    @@total_number += 1
-    @@sum_weight += @body_weight
-    @@sum_display_size += @display_size
-    @@sum_launch_announced += launch_announced
+    @@cell_data.store(self, @oem)
     
   end
 
@@ -55,17 +51,17 @@ platform_os: #{@platform_os}"
 
   # Class methods to find the average of Launch_Announced, body_weight, and display_size:
   def Cell.find_average_launch
-    avg_launch = @@sum_launch_announced / @@total_number
+    avg_launch =
     puts "Average year that launch was announced: #{avg_launch}"
   end
 
   def Cell.find_average_weight
-    avg_weight = @@sum_weight / @@total_number
+    avg_weight =
     puts "Average weight: #{avg_weight}"
   end
 
   def Cell.find_average_display_size
-    avg_display_size = @@sum_display_size / @@total_number
+    avg_display_size =
     puts "Average display size: #{avg_display_size}"
   end
 
