@@ -2,11 +2,26 @@
 require 'csv'
 
 class Cell
+  # Keeping numerical values' sums as class attributes
+  @@total_number = 0
+  @@sum_weight = 0
+  @@sum_display_size = 0
+  @@sum_launch_announced = 0
   # The column headers of cells.csv as attributes of the Cell class
-  @@columns = [:oem, :model, :launch_announced, :launch_status, :body_dimensions,
-               :body_weight, :body_sim, :display_type, :display_size, :display_resolution,
-               :features_sensors, :platform_os]
-  attr_accessor *@@columns
+  @oem
+  @model
+  @launch_announced
+  @launch_status
+  @body_dimensions
+  @body_weight
+  @body_sim
+  @display_type
+  @display_size
+  @display_resolution
+  @features_sensors
+  @platform_os
+  attr_accessor @oem,@model,@launch_announced,@launch_status,@body_dimensions,@body_sim,@display_type,@display_size,
+                @display_resolution,@features_sensors,@platform_os
 
   def initialize(oem, model, launch_announced, launch_status, body_dimensions,
                  body_weight, body_sim, display_type, display_size, display_resolution,
@@ -23,6 +38,12 @@ class Cell
     @display_resolution = display_resolution
     @features_sensors = features_sensors
     @platform_os = platform_os
+    
+    @@total_number += 1
+    @@sum_weight += @body_weight
+    @@sum_display_size += @display_size
+    @@sum_launch_announced += launch_announced
+    
   end
 
   def toString()
@@ -32,15 +53,22 @@ display_size: #{display_size}, display_resolution: #{display_resolution}, featur
 platform_os: #{@platform_os}"
   end
 
-  # Finds the average of Launch_Announced, body_weight, and display_size.
-  def find_averages()
-    # code here
+  # Class methods to find the average of Launch_Announced, body_weight, and display_size:
+  def Cell.find_average_launch
+    avg_launch = @@sum_launch_announced / @@total_number
+    puts "Average year that launch was announced: #{avg_launch}"
   end
 
-  # Finds the most frequent value of all fields.
-  def find_modes()
-    # code goes here
+  def Cell.find_average_weight
+    avg_weight = @@sum_weight / @@total_number
+    puts "Average weight: #{avg_weight}"
   end
+
+  def Cell.find_average_display_size
+    avg_display_size = @@sum_display_size / @@total_number
+    puts "Average display size: #{avg_display_size}"
+  end
+
 
   # What company (oem) has the highest average weight of the phone body?
   def avg_weight_by_oem()
