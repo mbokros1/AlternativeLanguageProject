@@ -110,20 +110,31 @@ platform_os: #{@platform_os}"
 
   # What company (oem) has the highest average weight of the phone body?
   def Cell.avg_weight_by_oem()
-    oem_groups = Hash.new{|h,k| h[k] = []}
-    @@cell_data.each_key do |phone|
-      next unless phone.body_weight
-      oem_groups[phone.oem] << phone.body_weight
+    max_avg = 0
+    max_oem = ""
+    oem_groups = Hash.new{|h,k| h[k] = []} # creates a new hash with OEMs as key and an array of weights as value
+    @@cell_data.each_key do |phone| # loop through the cell_data by key (Cell object)
+      next unless phone.body_weight # skips each phone if body_weight is nil
+      oem_groups[phone.oem] << phone.body_weight # enters body_weight into the array for the OEM
     end
-    oem_groups.each do |oem, weight_array|
-      average = weight_array.sum.to_f / weight_array.size
-      puts "Average weight for #{oem} is : #{average.round(2)} g."
+    # puts "Average weight for each oem:"
+    oem_groups.each do |oem, weight_array| # loops through each OEM
+      average = weight_array.sum.to_f / weight_array.size # divides the sum of weights by the number of weights
+      if average > max_avg
+        max_avg = average
+        max_oem = oem
+      end
+      # puts "#{oem}: #{average.round(2)} g"
     end
+    puts "The company with the highest average weight is #{max_oem} at #{max_avg} grams."
   end
-  # Was there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
-  #def announced_vs_released()
+
+  # Was there any phones that were announced in one year and released in another? What are they?
+  # Give me the oem and models.
+  def Cell.announced_vs_released()
     # code goes here
-  #end
+  end
+
   # How many phones have only one feature sensor?
   #def count_of_features_sensors()
     # code goes here
@@ -140,8 +151,8 @@ CSV.foreach("cells.csv", headers: true) do |row|
   vals += [""] * (12 - vals.size)
   Cell.new(*vals[0...12])
 end
-Cell.find_average_launch_announced
-Cell.find_average_weight
-Cell.find_average_display_size
+#Cell.find_average_launch_announced
+#Cell.find_average_weight
+#Cell.find_average_display_size
 Cell.avg_weight_by_oem
 # puts Cell.cell_data.size

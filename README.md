@@ -55,13 +55,24 @@ for that.
 ## Results
 #### What company (oem) has the highest average weight of the phone body?
 Code used to find this answer:
+
+    ![A screenshot of the code of the Cell.avg_weight_by_oem method](avg_weight_by_oem_code.png)
+
 Output:
+
+![A screenshot showing the output, "The company with the highest average weight is HP at 453.6 grams."](avg_weight_by_oem_output.png)
+
 #### Were there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
 Code used to find this answer:
+
 Output:
+
 #### How many phones have only one feature sensor?
 Code used to find this answer:
+
 Output:
+
 #### What year had the most phones launched in any year later than 1999? 
 Code used to find this answer:
+
 Output:
