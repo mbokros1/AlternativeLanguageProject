@@ -54,9 +54,14 @@ for that.
 
 ## Results
 #### What company (oem) has the highest average weight of the phone body?
-
+Code used to find this answer:
+Output:
 #### Were there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
-
+Code used to find this answer:
+Output:
 #### How many phones have only one feature sensor?
-
+Code used to find this answer:
+Output:
 #### What year had the most phones launched in any year later than 1999? 
+Code used to find this answer:
+Output:
