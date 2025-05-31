@@ -8,32 +8,37 @@ Ruby is flexible and powerful without having too high a barrier for entry.
 It also naturally leads into learning ruby on rails.
 
 ## Features of Ruby
-#### object-oriented programming 
+#### Object-oriented programming 
 Ruby is a very object-oriented language, everything is handled as an object.
 This has both advantages and disadvantages. One disadvantage is that during
 file ingestion, everything comes in as an object, so at some point there needs
 to be a ".to_s" applied to make sure things end up as specifically String objects.
-#### file ingestion
+#### File ingestion
+While Ruby usually handles files using "File.new()" and "File.open()" commands that
+appear similar to those used in other languages such as Python or Java, Ruby's csv
+library has some powerful options specifically tailored for .csv files, so it made 
+more sense to use those here instead.
+
 The csv library allows .csv files to be processed row by row using a simple
 "CSV.foreach()" statement. It also comes with the row object that can easily
 be turned into an array using "row.map{}".
-#### conditional statements
+#### Conditional statements
 Ruby's if/elseif/else statements are similar to those in other languages
 like Python or Java. What stands out to me is the "end" at the end of a
 statement as opposed to the same thing being accomplished by some set of
 parentheses/brackets or whitespace.
-#### assignment statements
+#### Assignment statements
 Ruby uses a simple equal sign ('=') as an assignment statement.
-#### loops
+#### Loops
 In addition to the usual while and for loops, Ruby also has an until condition, 
 which in effect is a while loop with a different syntax.
-#### subprograms (functions/methods)
+#### Subprograms (functions/methods)
 In Ruby, functions or methods not associated with a class become methods of the
 generic object Object. The syntax used for any function or method is to begin with
 "def" and end with "end".
-#### unit testing
+#### Unit testing
 RubyMines has minitest for the unit testing of Ruby projects.
-#### exception handling
+#### Exception handling
 Ruby's exception handling is done through the "rescue" statement, within which you
 can put a "retry" command after changing some arguments that might be causing the
 exceptions. Regardless of whether you retry or not, if you want some code to be 
