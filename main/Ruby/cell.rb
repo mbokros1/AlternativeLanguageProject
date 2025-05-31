@@ -76,6 +76,7 @@ platform_os: #{@platform_os}"
     keys = @@cell_data.keys.map{|phone| phone.launch_announced}.compact
     if keys.any?
       avg_launch = keys.sum.to_f / keys.size
+      avg_launch = avg_launch.to_i
       puts "Average year that launch was announced: #{avg_launch}"
     else
       puts "No launch announced!"
@@ -88,7 +89,7 @@ platform_os: #{@platform_os}"
     keys = @@cell_data.keys.map{|phone| phone.body_weight}.compact
     if keys.any?
       avg_weight = keys.sum.to_f / keys.size
-      puts "Average weight: #{avg_weight}"
+      puts "Average weight: #{avg_weight.round(2)}"
     else
       puts "No body weight found"
     end
@@ -100,7 +101,7 @@ platform_os: #{@platform_os}"
     keys = @@cell_data.keys.map{|phone| phone.display_size}.compact
     if keys.any?
       avg_display_size = keys.sum.to_f / keys.size
-      puts "Average display size: #{avg_display_size}"
+      puts "Average display size: #{avg_display_size.round(2)}"
     else
       puts "No display size found"
     end
@@ -109,7 +110,15 @@ platform_os: #{@platform_os}"
 
   # What company (oem) has the highest average weight of the phone body?
   def Cell.avg_weight_by_oem()
-
+    oem_groups = Hash.new{|h,k| h[k] = []}
+    @@cell_data.each_key do |phone|
+      next unless phone.body_weight
+      oem_groups[phone.oem] << phone.body_weight
+    end
+    oem_groups.each do |oem, weight_array|
+      average = weight_array.sum.to_f / weight_array.size
+      puts "Average weight for #{oem} is : #{average.round(2)} g."
+    end
   end
   # Was there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
   #def announced_vs_released()
@@ -134,5 +143,5 @@ end
 Cell.find_average_launch_announced
 Cell.find_average_weight
 Cell.find_average_display_size
-puts Cell.cell_data.size
-#Cell.avg_weight_by_oem
+Cell.avg_weight_by_oem
+# puts Cell.cell_data.size
