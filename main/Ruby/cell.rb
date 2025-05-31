@@ -70,7 +70,7 @@ platform_os: #{@platform_os}"
 
   # Class methods to find the average of Launch_Announced, body_weight, and display_size:
 
-  # Puts the keys (Cell objects, each called a phone here) into an array if @launch_announced is not nill (.compact),
+  # Puts the keys (Cell objects, each called a phone here) into an array if @launch_announced is not nil (.compact),
   # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
   def Cell.find_average_launch_announced
     keys = @@cell_data.keys.map{|phone| phone.launch_announced}.compact
@@ -82,7 +82,7 @@ platform_os: #{@platform_os}"
     end
   end
 
-  # Puts the keys (Cell objects, each called a phone here) into an array if @body_weight is not nill (.compact),
+  # Puts the keys (Cell objects, each called a phone here) into an array if @body_weight is not nil (.compact),
   # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
   def Cell.find_average_weight
     keys = @@cell_data.keys.map{|phone| phone.body_weight}.compact
@@ -94,7 +94,7 @@ platform_os: #{@platform_os}"
     end
   end
 
-  # Puts the keys (Cell objects, each called a phone here) into an array if @display_size is not nill (.compact),
+  # Puts the keys (Cell objects, each called a phone here) into an array if @display_size is not nil (.compact),
   # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
   def Cell.find_average_display_size
     keys = @@cell_data.keys.map{|phone| phone.display_size}.compact
