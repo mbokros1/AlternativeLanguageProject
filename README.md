@@ -56,7 +56,7 @@ for that.
 #### What company (oem) has the highest average weight of the phone body?
 Code used to find this answer:
 
-    ![A screenshot of the code of the Cell.avg_weight_by_oem method](avg_weight_by_oem_code.png)
+![A screenshot of the code of the Cell.avg_weight_by_oem method](avg_weight_by_oem_code.png)
 
 Output:
 
