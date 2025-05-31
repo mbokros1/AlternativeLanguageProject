@@ -68,6 +68,8 @@ platform_os: #{@platform_os}"
     if keys.any?
       avg_launch = keys.sum.to_f / keys.size
       puts "Average year that launch was announced: #{avg_launch}"
+    else
+      puts "No launch announced!"
     end
   end
 
@@ -112,7 +114,7 @@ platform_os: #{@platform_os}"
   #end
 end
 
-# code goes here to create cell objects for each row of the csc and put them into a hash
+# File ingestion
 CSV.foreach("cells.csv", headers: true) do |row|
   row = row.map { |val| val.nil? ? "" : val }
   row += [""] * (12 - row.size)
