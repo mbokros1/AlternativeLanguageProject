@@ -199,11 +199,11 @@ CSV.foreach("cells.csv", headers: true) do |row|
   vals += [""] * (12 - vals.size)
   Cell.new(*vals[0...12])
 end
-#Cell.count_of_features_sensors
-#Cell.count_of_launch_years
+Cell.count_of_features_sensors
+Cell.count_of_launch_years
+Cell.announced_vs_released
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size
-#Cell.avg_weight_by_oem
-#Cell.announced_vs_released
+Cell.avg_weight_by_oem
 #puts Cell.cell_data.size
