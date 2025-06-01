@@ -147,9 +147,21 @@ platform_os: #{@platform_os}"
   end
 
   # How many phones have only one feature sensor?
-  #def count_of_features_sensors()
-    # code goes here
-  #end
+  def Cell.count_of_features_sensors
+    count_one = 0 # The count of phones with only one sensor
+    count_multiple = 0 # The count of phones with multiple sensors, for debugging purposes only
+    @@cell_data.each_key do |phone| # looping through cell_data
+      next unless phone.features_sensors # filters out nil, but all phones have valid features_sensors in cells.csv
+      str = phone.features_sensors.to_s.split(",") # array of features_sensors split by ","
+      if str.length == 1
+        count_one += 1
+      elsif str.length > 1
+        count_multiple += 1
+      end
+    end
+    puts "#{count_one} phones have only one feature sensor."
+    puts "#{count_multiple} phones have multiple feature sensors."
+  end
 
   # What year had the most phones launched in any year later than 1999?
   def Cell.count_of_launch_years
@@ -178,7 +190,8 @@ CSV.foreach("cells.csv", headers: true) do |row|
   vals += [""] * (12 - vals.size)
   Cell.new(*vals[0...12])
 end
-Cell.count_of_launch_years
+Cell.count_of_features_sensors
+#Cell.count_of_launch_years
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size

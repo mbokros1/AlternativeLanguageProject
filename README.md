@@ -54,6 +54,8 @@ for that.
 
 ## Results
 #### What company (oem) has the highest average weight of the phone body?
+HP had the highest average weight (453.6 grams).
+
 Code used to find this answer:
 
 ![A screenshot of the code of the Cell.avg_weight_by_oem method](avg_weight_by_oem_code.png)
@@ -63,6 +65,9 @@ Output:
 ![A screenshot showing the output, "The company with the highest average weight is HP at 453.6 grams."](avg_weight_by_oem_output.png)
 
 #### Were there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
+The Motorola One Hyper, the Motorola Razr 2019, the Xiaomi Redmi K30 5G, and the Xiaomi Mi Mix Alpha were all
+announced in 2019 but launched in 2020.
+
 Code used to find this answer:
 
 ![A screenshot of the code for Cell.announced_vs_released](announced_released_code.png)
@@ -72,11 +77,19 @@ Output:
 ![A screenshot showing output Motorola One Hyper, Motorola Razr 2019, Xiaomi Redmi K30 5G, and Xiaomi Mi Mix Alpha](announced_released_output.png)
 
 #### How many phones have only one feature sensor?
+432 phones only have one feature sensor.
+
 Code used to find this answer:
+
+![Screenshot of the code for Cell.count_of_feature_sensors](count_features_code.png)
 
 Output:
 
+![Screenshot showing output 432 phones have only one feature 568 phones have multiple](count_features_output.png)
+
 #### What year had the most phones launched in any year later than 1999? 
+2019 had the most launches since 1999, with 304 launches.
+
 Code used to find this answer:
 
 ![](count_launch_years_code.png)
