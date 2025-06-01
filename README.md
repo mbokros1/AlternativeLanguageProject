@@ -70,7 +70,6 @@ Sharp: the AQUOS 941SH and 940SH were announced in 2009, launched in 2010.
 
 Xiaomi: the Redmi K30 5G was announced in 2019, launched in 2020.
 
-
 Output:
 
 ![A screenshot showing output of 8 phones with OEM, Model, year announced, and year launched](announced_released_output.png)
