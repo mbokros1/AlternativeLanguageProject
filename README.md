@@ -56,6 +56,8 @@ Alternatively, Ruby also has a "throw"/"catch" statement similar to other langua
 I needed to use the csv library to allow processing of the csv file in this project.
 Ruby has support for regex built into the base language so no library was needed
 for that.
+Minitest is also a library in Ruby, but as the name suggests it is used for unit
+testing, not for the code in cell.rb.
 
 ## Results
 #### What company (oem) has the highest average weight of the phone body?
