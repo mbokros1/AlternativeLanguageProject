@@ -42,7 +42,7 @@ class Cell
     if (@launch_status != "Discontinued") && (@launch_status != "Cancelled")
       str = @launch_status.to_s[/Available\. Released \d{4}/]
       if str.nil?
-        @launch_status = nil
+        @launch_year = nil
       else
         @launch_year = str[/\d{4}/].to_i # grabs the first four-digit year from launch status
       end
