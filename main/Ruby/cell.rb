@@ -40,12 +40,17 @@ class Cell
     @launch_status = launch_status[/(?:Discontinued|Cancelled|Available\. Released \d{4})/]
     # Captures "Discontinued", "Cancelled", and "Available. Released <4-digit year>", ignores later characters.
     if (@launch_status != "Discontinued") && (@launch_status != "Cancelled")
-      @launch_year = @launch_status.to_s[/\d{4}/]# grabs the first four-digit year from launch status
+      str = @launch_status.to_s[/Available\. Released \d{4}/]
+      if str.nil?
+        @launch_status = nil
+      else
+        @launch_year = str[/\d{4}/].to_i # grabs the first four-digit year from launch status
+      end
     elsif @launch_status == "Discontinued"
       if match = launch_announced.match(/Released .*?(\b\d{4}\b)/)
-        @launch_year = match[1]
+        @launch_year = match[1].to_i
       else
-        @launch_year = @launch_announced
+        @launch_year = @launch_announced.to_i
       end
     end
 =begin
@@ -194,21 +199,23 @@ platform_os: #{@platform_os}"
 end
 
 # File ingestion
-begin
-  CSV.foreach("cells.csv", headers: true) do |row|
-    vals = row.fields.map { |val| val.nil? ? "" : val.to_s }
-    vals += [""] * (12 - vals.size)
-    Cell.new(*vals[0...12])
+if __FILE__ == $0 # Done to prevent this code from running during unit tests; will only run if file is directly run.
+  begin
+    CSV.foreach("cells.csv", headers: true) do |row|
+      vals = row.fields.map { |val| val.nil? ? "" : val.to_s }
+      vals += [""] * (12 - vals.size)
+      Cell.new(*vals[0...12])
+    end
+  rescue Errno::ENOENT
+    puts "Cells.csv not found! Please make sure your file is in the correct location."
   end
-rescue Errno::ENOENT
-  puts "Cells.csv not found! Please make sure your file is in the correct location."
+  Cell.count_of_features_sensors
+  Cell.count_of_launch_years
+  Cell.avg_weight_by_oem
+  puts "\nThese phones were announced and released in different years:"
+  Cell.announced_vs_released
+  #Cell.find_average_launch_announced
+  #Cell.find_average_weight
+  #Cell.find_average_display_size
+  #puts Cell.cell_data.size
 end
-Cell.count_of_features_sensors
-Cell.count_of_launch_years
-Cell.avg_weight_by_oem
-puts "\nThese phones were announced and released in different years:"
-Cell.announced_vs_released
-#Cell.find_average_launch_announced
-#Cell.find_average_weight
-#Cell.find_average_display_size
-#puts Cell.cell_data.size

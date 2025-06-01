@@ -37,7 +37,7 @@ In Ruby, functions or methods not associated with a class become methods of the
 generic object Object. The syntax used for any function or method is to begin with
 "def" and end with "end".
 #### Unit testing
-RubyMines has minitest for the unit testing of Ruby projects.
+Ruby has minitest for the unit testing of Ruby projects.
 #### Exception handling
 Ruby's exception handling is done through the "rescue" statement, within which you
 can put a "retry" command after changing some arguments that might be causing the
