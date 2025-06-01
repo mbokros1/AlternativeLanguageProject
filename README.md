@@ -78,7 +78,6 @@ Output:
 #### How many phones have only one feature sensor?
 419 phones only have one feature sensor.
 
-
 Output:
 
 ![Screenshot showing output 432 phones have only one feature 568 phones have multiple](count_features_output.png)
