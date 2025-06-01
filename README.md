@@ -65,7 +65,11 @@ Output:
 #### Were there any phones that were announced in one year and released in another? What are they? Give me the oem and models.
 Code used to find this answer:
 
+![A screenshot of the code for Cell.announced_vs_released](announced_released_code.png)
+
 Output:
+
+![A screenshot showing output Motorola One Hyper, Motorola Razr 2019, Xiaomi Redmi K30 5G, and Xiaomi Mi Mix Alpha](announced_released_output.png)
 
 #### How many phones have only one feature sensor?
 Code used to find this answer:

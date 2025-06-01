@@ -129,10 +129,21 @@ platform_os: #{@platform_os}"
     puts "The company with the highest average weight is #{max_oem} at #{max_avg} grams."
   end
 
-  # Was there any phones that were announced in one year and released in another? What are they?
+  # Were there any phones that were announced in one year and released in another? What are they?
   # Give me the oem and models.
   def Cell.announced_vs_released()
-    # code goes here
+    dif = Array.new
+    @@cell_data.each_key do |phone|
+      next unless phone.launch_announced
+      next unless phone.launch_year
+      if phone.launch_announced.to_i != phone.launch_year.to_i
+        dif << phone
+      end
+    end
+    dif.each do |phone|
+      puts "OEM: #{phone.oem}, Model: #{phone.model}, Year launch announced: #{phone.launch_announced},
+ Year actually launched: #{phone.launch_year}"
+    end
   end
 
   # How many phones have only one feature sensor?
@@ -154,5 +165,6 @@ end
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size
-Cell.avg_weight_by_oem
+#Cell.avg_weight_by_oem
+Cell.announced_vs_released
 # puts Cell.cell_data.size
