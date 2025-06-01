@@ -194,16 +194,21 @@ platform_os: #{@platform_os}"
 end
 
 # File ingestion
-CSV.foreach("cells.csv", headers: true) do |row|
-  vals = row.fields.map { |val| val.nil? ? "" : val.to_s }
-  vals += [""] * (12 - vals.size)
-  Cell.new(*vals[0...12])
+begin
+  CSV.foreach("cells.csv", headers: true) do |row|
+    vals = row.fields.map { |val| val.nil? ? "" : val.to_s }
+    vals += [""] * (12 - vals.size)
+    Cell.new(*vals[0...12])
+  end
+rescue Errno::ENOENT
+  puts "Cells.csv not found! Please make sure your file is in the correct location."
 end
 Cell.count_of_features_sensors
 Cell.count_of_launch_years
+Cell.avg_weight_by_oem
+puts "\nThese phones were announced and released in different years:"
 Cell.announced_vs_released
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size
-Cell.avg_weight_by_oem
 #puts Cell.cell_data.size
