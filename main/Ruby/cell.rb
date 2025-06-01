@@ -39,7 +39,15 @@ class Cell
     @launch_announced = launch_announced[/\b\d{4}\b/]&.to_i # Captures first occurrence of 4-digit year, if any.
     @launch_status = launch_status[/(?:Discontinued|Cancelled|Available\. Released \d{4})/]
     # Captures "Discontinued", "Cancelled", and "Available. Released <4-digit year>", ignores later characters.
-    @launch_year = launch_status[/\d{4}/]# grabs the first four-digit year from launch status
+    if (@launch_status != "Discontinued") && (@launch_status != "Cancelled")
+      @launch_year = @launch_status.to_s[/\d{4}/]# grabs the first four-digit year from launch status
+    elsif @launch_status == "Discontinued"
+      if match = launch_announced.match(/Released .*?(\b\d{4}\b)/)
+        @launch_year = match[1]
+      else
+        @launch_year = @launch_announced
+      end
+    end
 =begin
     if launch_year.nil?
       puts "year nil because status is #{launch_status}"
@@ -57,25 +65,26 @@ class Cell
     @features_sensors = features_sensors[/(?=.*[A-Za-z]).+/]# Allows all strings that contain at least one letter
     @platform_os = platform_os[/(?=.*[A-Za-z]).+/]# Allows all strings that contain at least one letter
 
-    @@cell_data[self] = oem
+    @@cell_data[self.toString] = self
     
   end
 
   def toString
-    puts "OEM: #{@oem}, Model: #{@model}, Launch_Announced: #{@launch_announced}, Launch_Status: #{@launch_status},
+    str = "OEM: #{@oem}, Model: #{@model}, Launch_Announced: #{@launch_announced}, Launch_Status: #{@launch_status},
 body_dimensions: #{@body_dimensions}, body_weight: #{@body_weight}, body_sim: #{@body_sim}, display_type: #{@display_type},
 display_size: #{@display_size}, display_resolution: #{@display_resolution}, features_sensors: #{@features_sensors},
 platform_os: #{@platform_os}"
+    return str
   end
 
   # Class methods to find the average of Launch_Announced, body_weight, and display_size:
 
-  # Puts the keys (Cell objects, each called a phone here) into an array if @launch_announced is not nil (.compact),
+  # Puts the values (Cell objects, each called a phone here) into an array if @launch_announced is not nil (.compact),
   # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
   def Cell.find_average_launch_announced
-    keys = @@cell_data.keys.map{|phone| phone.launch_announced}.compact
-    if keys.any?
-      avg_launch = keys.sum.to_f / keys.size
+    values = @@cell_data.values.map{|phone| phone.launch_announced}.compact
+    if values.any?
+      avg_launch = values.sum.to_f / values.size
       avg_launch = avg_launch.to_i
       puts "Average year that launch was announced: #{avg_launch}"
     else
@@ -83,12 +92,12 @@ platform_os: #{@platform_os}"
     end
   end
 
-  # Puts the keys (Cell objects, each called a phone here) into an array if @body_weight is not nil (.compact),
-  # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
+  # Puts the values (Cell objects, each called a phone here) into an array if @body_weight is not nil (.compact),
+  # then checks if the array is not empty and divides the sum of the values in float form by the size of the array.
   def Cell.find_average_weight
-    keys = @@cell_data.keys.map{|phone| phone.body_weight}.compact
-    if keys.any?
-      avg_weight = keys.sum.to_f / keys.size
+    values = @@cell_data.values.map{|phone| phone.body_weight}.compact
+    if values.any?
+      avg_weight = values.sum.to_f / values.size
       puts "Average weight: #{avg_weight.round(2)}"
     else
       puts "No body weight found"
@@ -96,11 +105,11 @@ platform_os: #{@platform_os}"
   end
 
   # Puts the keys (Cell objects, each called a phone here) into an array if @display_size is not nil (.compact),
-  # then checks if the array is not empty and divides the sum of the keys in float form by the size of the array.
+  # then checks if the array is not empty and divides the sum of the values in float form by the size of the array.
   def Cell.find_average_display_size
-    keys = @@cell_data.keys.map{|phone| phone.display_size}.compact
-    if keys.any?
-      avg_display_size = keys.sum.to_f / keys.size
+    values = @@cell_data.values.map{|phone| phone.display_size}.compact
+    if values.any?
+      avg_display_size = values.sum.to_f / values.size
       puts "Average display size: #{avg_display_size.round(2)}"
     else
       puts "No display size found"
@@ -113,7 +122,7 @@ platform_os: #{@platform_os}"
     max_avg = 0
     max_oem = ""
     oem_groups = Hash.new{|h,k| h[k] = []} # creates a new hash with OEMs as key and an array of weights as value
-    @@cell_data.each_key do |phone| # loop through the cell_data by key (Cell object)
+    @@cell_data.each_value do |phone| # loop through the cell_data by key (Cell object)
       next unless phone.body_weight # skips each phone if body_weight is nil
       oem_groups[phone.oem] << phone.body_weight # enters body_weight into the array for the OEM
     end
@@ -133,7 +142,7 @@ platform_os: #{@platform_os}"
   # Give me the oem and models.
   def Cell.announced_vs_released()
     dif = Array.new
-    @@cell_data.each_key do |phone|
+    @@cell_data.each_value do |phone|
       next unless phone.launch_announced
       next unless phone.launch_year
       if phone.launch_announced.to_i != phone.launch_year.to_i
@@ -150,7 +159,7 @@ platform_os: #{@platform_os}"
   def Cell.count_of_features_sensors
     count_one = 0 # The count of phones with only one sensor
     count_multiple = 0 # The count of phones with multiple sensors, for debugging purposes only
-    @@cell_data.each_key do |phone| # looping through cell_data
+    @@cell_data.each_value do |phone| # looping through cell_data
       next unless phone.features_sensors # filters out nil, but all phones have valid features_sensors in cells.csv
       str = phone.features_sensors.to_s.split(",") # array of features_sensors split by ","
       if str.length == 1
@@ -168,7 +177,7 @@ platform_os: #{@platform_os}"
     max_year = 0
     max_count = 0
     years = Hash.new{|h,k| h[k] = 0} # new hash with years as key and count as value, default being 0 instead of nil
-    @@cell_data.each_key do |phone| # looping through cell_data
+    @@cell_data.each_value do |phone| # looping through cell_data
       next unless phone.launch_announced # skip phone if launch_year is nil
       years[phone.launch_announced] += 1 # increment value stored in the key by 1
     end
@@ -190,11 +199,11 @@ CSV.foreach("cells.csv", headers: true) do |row|
   vals += [""] * (12 - vals.size)
   Cell.new(*vals[0...12])
 end
-Cell.count_of_features_sensors
+#Cell.count_of_features_sensors
 #Cell.count_of_launch_years
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size
 #Cell.avg_weight_by_oem
 #Cell.announced_vs_released
-# puts Cell.cell_data.size
+#puts Cell.cell_data.size
