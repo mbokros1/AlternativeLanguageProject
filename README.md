@@ -84,7 +84,6 @@ Output:
 #### What year had the most phones launched in any year later than 1999? 
 2019 had the most launches since 1999, with 251 launches.
 
-
 Output:
 
 ![A screenshot showing output with the years and counts of phones released by year, sorted by count](count_launch_years_output.png)
