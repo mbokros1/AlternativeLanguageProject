@@ -54,11 +54,13 @@ class Cell
       end
     end
 =begin
-    if launch_year.nil?
-      puts "year nil because status is #{launch_status}"
-    else
-      puts @launch_year
-    end
+This should be a block comment, sometimes RubyMines has trouble with them because they seem to depend on indentation.
+So I am including hashtags to make sure this code stays commented out.
+    #if launch_year.nil?
+    #  puts "year nil because status is #{launch_status}"
+    #else
+    #  puts @launch_year
+    #end
 =end
     @body_dimensions = body_dimensions
     @body_weight = body_weight[/\d+(?:\.\d+)?(?=[ g(])/]&.to_f
@@ -221,8 +223,10 @@ if __FILE__ == $0 # Done to prevent this code from running during unit tests; wi
   Cell.avg_weight_by_oem
   puts "\nThese phones were announced and released in different years:"
   Cell.announced_vs_released
-  #Cell.find_average_launch_announced
-  #Cell.find_average_weight
-  #Cell.find_average_display_size
-  #puts Cell.cell_data.size
+=begin
+     Cell.find_average_launch_announced
+     Cell.find_average_weight
+     Cell.find_average_display_size
+     puts Cell.cell_data.size
+=end
 end
