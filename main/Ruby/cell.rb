@@ -92,6 +92,7 @@ platform_os: #{@platform_os}"
       avg_launch = values.sum.to_f / values.size
       avg_launch = avg_launch.to_i
       puts "Average year that launch was announced: #{avg_launch}"
+      return avg_launch
     else
       puts "No launch announced!"
     end
@@ -104,6 +105,7 @@ platform_os: #{@platform_os}"
     if values.any?
       avg_weight = values.sum.to_f / values.size
       puts "Average weight: #{avg_weight.round(2)}"
+      return avg_weight
     else
       puts "No body weight found"
     end
@@ -116,6 +118,7 @@ platform_os: #{@platform_os}"
     if values.any?
       avg_display_size = values.sum.to_f / values.size
       puts "Average display size: #{avg_display_size.round(2)}"
+      return avg_display_size
     else
       puts "No display size found"
     end
@@ -141,6 +144,7 @@ platform_os: #{@platform_os}"
       # puts "#{oem}: #{average.round(2)} g"
     end
     puts "The company with the highest average weight is #{max_oem} at #{max_avg} grams."
+    return [max_oem,  max_avg]
   end
 
   # Were there any phones that were announced in one year and released in another? What are they?
@@ -175,6 +179,7 @@ platform_os: #{@platform_os}"
     end
     puts "#{count_one} phones have only one feature sensor."
     puts "#{count_multiple} phones have multiple feature sensors."
+    return count_one
   end
 
   # What year had the most phones launched in any year later than 1999?
@@ -194,6 +199,7 @@ platform_os: #{@platform_os}"
       end
     end
     puts "The year that had the most launches since 1999 was #{max_year} with #{max_count} launches."
+    return max_year
   end
   #end of class
 end
