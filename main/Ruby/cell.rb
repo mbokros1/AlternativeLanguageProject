@@ -126,7 +126,7 @@ platform_os: #{@platform_os}"
 
 
   # What company (oem) has the highest average weight of the phone body?
-  def Cell.avg_weight_by_oem()
+  def Cell.avg_weight_by_oem
     max_avg = 0
     max_oem = ""
     oem_groups = Hash.new{|h,k| h[k] = []} # creates a new hash with OEMs as key and an array of weights as value
@@ -149,7 +149,7 @@ platform_os: #{@platform_os}"
 
   # Were there any phones that were announced in one year and released in another? What are they?
   # Give me the oem and models.
-  def Cell.announced_vs_released()
+  def Cell.announced_vs_released
     dif = Array.new
     @@cell_data.each_value do |phone|
       next unless phone.launch_announced
@@ -162,6 +162,7 @@ platform_os: #{@platform_os}"
       puts "OEM: #{phone.oem}, Model: #{phone.model}, Year launch announced: #{phone.launch_announced},
  Year actually launched: #{phone.launch_year}"
     end
+    return dif
   end
 
   # How many phones have only one feature sensor?

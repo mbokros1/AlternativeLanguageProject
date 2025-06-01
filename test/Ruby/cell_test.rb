@@ -20,17 +20,45 @@ class CellTest < Minitest::Test
 
   # Testing cell methods:
   def test_toString
-    str = "OEM: Test Company, Model: Examplephone 3a, Launch_Announced: 2025, Launch_Status: Available. Released 2025,
+    str = "OEM: Test Company, Model: Examplephone 3a, Launch_Announced: 2024, Launch_Status: Available. Released 2025,
 body_dimensions: 151.3 x 70.1 x 8.2 mm (5.96 x 2.76 x 0.32 in), body_weight: 147.0, body_sim: Nano-SIM, display_type: OLED capacitive touchscreen, 16M colors,
 display_size: 5.6, display_resolution: 1080 x 2220 pixels, 18.5:9 ratio (~441 ppi density), features_sensors: Fingerprint (rear-mounted), accelerometer, gyro, proximity, compass, barometer,
 platform_os: Android 15"
     assert_equal str, @phones[0].toString
   end
 
-  def test_avg_launch_announced
-    ans = (2025.0 + 1999.0)/2.0
+  def test_find_average_launch_announced
+    ans = (2024.0 + 1999.0)/2.0
     ans = ans.to_i
     assert_equal ans, @phones[0].class.find_average_launch_announced
+  end
+
+  def test_find_average_weight
+    ans = (147.0 + 190.0)/2.0
+    assert_equal ans, @phones[0].class.find_average_weight
+  end
+
+  def test_find_average_display_size
+    ans = (5.6 + 3.5)/2.0
+    assert_equal ans, @phones[0].class.find_average_display_size
+  end
+
+  def test_avg_weight_by_oem
+    ans = @phones[0].class.avg_weight_by_oem
+    assert_equal "Other Company", ans[0]
+    assert_equal 190.0, ans[1]
+  end
+
+  def test_announced_vs_released
+    assert_equal [@phones[0]], @phones[0].class.announced_vs_released
+  end
+
+  def test_count_of_features_sensors
+    assert_equal 1, @phones[0].class.count_of_features_sensors
+  end
+
+  def test_count_of_launch_years
+    assert_equal 2024, @phones[0].class.count_of_launch_years
   end
 
   # Test if cells.csv is not empty
