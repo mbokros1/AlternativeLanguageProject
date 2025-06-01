@@ -37,7 +37,12 @@ In Ruby, functions or methods not associated with a class become methods of the
 generic object Object. The syntax used for any function or method is to begin with
 "def" and end with "end".
 #### Unit testing
-Ruby has minitest for the unit testing of Ruby projects.
+Ruby has minitest for the unit testing of Ruby projects. This works by creating a test class
+and making an instance variable that is an object of the class you want to test (or in this
+case, an array containing two objects of Cell class; used an array so that the file ingestion
+process could be tested as well). Then all of the unit tests are written as methods of the
+test class.
+
 #### Exception handling
 Ruby's exception handling is done through the "rescue" statement, within which you
 can put a "retry" command after changing some arguments that might be causing the
