@@ -150,10 +150,26 @@ platform_os: #{@platform_os}"
   #def count_of_features_sensors()
     # code goes here
   #end
+
   # What year had the most phones launched in any year later than 1999?
-  #def count_of_launch_years()
-    # code goes here
-  #end
+  def Cell.count_of_launch_years
+    max_year = 0
+    max_count = 0
+    years = Hash.new{|h,k| h[k] = 0} # new hash with years as key and count as value, default being 0 instead of nil
+    @@cell_data.each_key do |phone| # looping through cell_data
+      next unless phone.launch_announced # skip phone if launch_year is nil
+      years[phone.launch_announced] += 1 # increment value stored in the key by 1
+    end
+    years.sort.each do |year, count| # loop through the years hash
+      # puts "#{year}: #{count} phones released" # output with key and value
+      if (year > 1999) & (count.to_i > max_count.to_i)
+        max_count = count
+        max_year = year
+      end
+    end
+    puts "The year that had the most launches since 1999 was #{max_year} with #{max_count} launches."
+  end
+  #end of class
 end
 
 # File ingestion
@@ -162,9 +178,10 @@ CSV.foreach("cells.csv", headers: true) do |row|
   vals += [""] * (12 - vals.size)
   Cell.new(*vals[0...12])
 end
+Cell.count_of_launch_years
 #Cell.find_average_launch_announced
 #Cell.find_average_weight
 #Cell.find_average_display_size
 #Cell.avg_weight_by_oem
-Cell.announced_vs_released
+#Cell.announced_vs_released
 # puts Cell.cell_data.size

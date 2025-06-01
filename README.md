@@ -79,4 +79,8 @@ Output:
 #### What year had the most phones launched in any year later than 1999? 
 Code used to find this answer:
 
+![](count_launch_years_code.png)
+
 Output:
+
+![A screenshot showing output with the years and counts of phones released by year, sorted by count](count_launch_years_output.png)
