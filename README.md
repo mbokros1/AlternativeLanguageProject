@@ -1,6 +1,17 @@
 # Alternative Language Project: Ruby
-For this project, I chose Ruby 3.4.4, which was the most recent version available 
-to me when I began. Ruby 3.4.4 was released in May 2025, with the next version 
+This project was completed as part of a school assignment focused on exploring alternative 
+programming languages. The goal was to use a language other than Java or Python to analyze 
+data from a CSV file (cells.csv). The assignment involved:
+
+* Ingesting and parsing CSV data
+* Performing data cleaning (e.g., removing duplicates)
+* Calculating summary statistics
+* Answering specific questions about the dataset
+
+I chose to complete this project using Ruby, taking advantage of its standard libraries 
+and expressive syntax to process and analyze the data efficiently. More specifically I
+worked with Ruby 3.4.4, which was the most recent version available
+to me when I began. Ruby 3.4.4 was released in May 2025, with the next version
 scheduled for release in July.
 
 ## Why Ruby?
